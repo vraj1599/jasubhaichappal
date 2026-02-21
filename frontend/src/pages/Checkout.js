@@ -143,6 +143,11 @@ const Checkout = () => {
       }
 
       // Razorpay payment
+      if (!razorpayLoaded || !window.Razorpay) {
+        toast.error('Payment gateway not available. Please try again.');
+        return;
+      }
+
       const options = {
         key: razorpayKeyId,
         amount: order.total * 100, // Convert to paise
@@ -175,7 +180,7 @@ const Checkout = () => {
         }
       };
 
-      const razorpayInstance = new Razorpay(options);
+      const razorpayInstance = new window.Razorpay(options);
       razorpayInstance.open();
     } catch (error) {
       console.error('Error placing order:', error);
