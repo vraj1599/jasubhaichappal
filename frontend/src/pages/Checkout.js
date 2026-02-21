@@ -36,6 +36,7 @@ const Checkout = () => {
 
   useEffect(() => {
     fetchData();
+    loadRazorpayScript().then(loaded => setRazorpayLoaded(loaded));
   }, []);
 
   const fetchData = async () => {
