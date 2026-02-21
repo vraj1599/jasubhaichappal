@@ -2,14 +2,24 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'sonner';
-import useRazorpay from 'react-razorpay';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Load Razorpay script
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
+
 const Checkout = () => {
   const navigate = useNavigate();
-  const [Razorpay] = useRazorpay();
+  const [razorpayLoaded, setRazorpayLoaded] = useState(false);
   const [cart, setCart] = useState(null);
   const [products, setProducts] = useState({});
   const [razorpayKeyId, setRazorpayKeyId] = useState('');
