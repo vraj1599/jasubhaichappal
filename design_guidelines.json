@@ -1,0 +1,156 @@
+{
+  "brand_identity": {
+    "name": "Jasubhai Chappal",
+    "location": "Mahemdavad, Gujarat",
+    "ethos": "Handcrafted Elegance, Traditional Roots, Modern Comfort",
+    "target_audience": "Women who value tradition, quality, and style for weddings and daily wear."
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Playfair Display, serif",
+      "body": "Mulish, sans-serif",
+      "accent": "Cinzel, serif"
+    },
+    "installation": {
+      "google_fonts": "https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Mulish:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+    },
+    "scale": {
+      "h1": "text-5xl md:text-7xl font-bold tracking-tight",
+      "h2": "text-4xl md:text-5xl font-semibold",
+      "h3": "text-2xl md:text-3xl font-medium",
+      "body_lg": "text-lg md:text-xl leading-relaxed",
+      "body": "text-base leading-relaxed",
+      "caption": "text-sm tracking-widest uppercase"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary": "#800020",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#D4AF37",
+      "secondary_foreground": "#000000",
+      "background": "#FDFBF7",
+      "foreground": "#1A1A1A",
+      "card": "#FFFFFF",
+      "card_foreground": "#1A1A1A",
+      "accent": "#F5E6D3",
+      "muted": "#F2F2F2",
+      "muted_foreground": "#737373",
+      "border": "#E5E5E5",
+      "destructive": "#991B1B"
+    },
+    "usage": {
+      "background": "Cream/Off-white (#FDFBF7) for main pages to evoke warmth.",
+      "primary": "Deep Maroon (#800020) for CTAs, Footer, and active states.",
+      "accent": "Gold (#D4AF37) for borders, icons, and subtle highlights (not text).",
+      "text": "Charcoal (#1A1A1A) for readability, never pure black."
+    }
+  },
+  "layout_strategies": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "spacing": {
+      "section_padding": "py-16 md:py-24",
+      "element_gap": "gap-8"
+    },
+    "grid_system": {
+      "collections": "Bento Grid: Mix of col-span-1 (square) and col-span-2 (landscape) or row-span-2 (portrait) items.",
+      "products": "Responsive Grid: grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8",
+      "features": "Asymmetrical 3-column layout with center focus."
+    }
+  },
+  "components": {
+    "header": {
+      "style": "Sticky, Glassmorphism (bg-white/80 backdrop-blur-md). Logo centered or left. Minimal nav.",
+      "border": "border-b border-primary/10"
+    },
+    "hero": {
+      "style": "Split layout or Full-width background with overlay. High emotional impact image.",
+      "text_alignment": "Left aligned or Centered with 'Cinzel' sub-heading.",
+      "overlay": "bg-gradient-to-r from-background/90 to-transparent (if split) or bg-black/30 (if full)"
+    },
+    "buttons": {
+      "primary": "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-8 py-3 font-serif transition-all duration-300 shadow-md hover:shadow-lg",
+      "secondary": "border border-primary text-primary hover:bg-primary hover:text-white rounded-none px-8 py-3 transition-all duration-300",
+      "ghost": "text-primary hover:bg-accent/20 hover:text-primary-dark"
+    },
+    "product_card": {
+      "style": "Minimalist. Image dominates (aspect-[3/4]). Text below. No borders on card, just whitespace.",
+      "hover": "Image zoom (scale-105) inside overflow-hidden container. 'Add to Cart' slides up from bottom.",
+      "typography": "Title in Serif, Price in Sans (Gold color)."
+    },
+    "footer": {
+      "style": "Dark Maroon (#800020) background. Text in Gold/Cream. Multi-column.",
+      "decoration": "Add Indian mandala or paisley pattern opacity-10 overlay."
+    }
+  },
+  "visual_enhancers": {
+    "borders": "1px solid Gold (#D4AF37) with opacity-30 for section dividers.",
+    "shadows": "soft: shadow-[0_8px_30px_rgb(0,0,0,0.04)]",
+    "textures": "Subtle paper grain texture on background (optional) to feel 'handmade'.",
+    "icons": "Use Phosphor Icons (Light weight) or Lucide (Stroke width 1.5). Gold color."
+  },
+  "motion": {
+    "page_load": "Fade up with stagger for children.",
+    "scroll": "Parallax effect on hero images and 'About Us' section.",
+    "hover": "Smooth color transition (300ms). Buttons lift slightly.",
+    "library": "framer-motion"
+  },
+  "image_assets": {
+    "hero": {
+      "url": "https://images.pexels.com/photos/29169312/pexels-photo-29169312.jpeg",
+      "alt": "Bride feet with mehndi and traditional chappals",
+      "description": "High emotional connection, showing culture and product context."
+    },
+    "categories": [
+      {
+        "name": "Wedding Collection",
+        "url": "https://images.pexels.com/photos/2060242/pexels-photo-2060242.jpeg",
+        "alt": "Embroidered wedding mojari"
+      },
+      {
+        "name": "Party Wear",
+        "url": "https://images.unsplash.com/photo-1770049770706-6fc82ab583d8",
+        "alt": "Fancy party footwear display"
+      },
+      {
+        "name": "Daily Comfort",
+        "url": "https://images.pexels.com/photos/8477809/pexels-photo-8477809.jpeg",
+        "alt": "Comfortable daily wear sandals"
+      }
+    ],
+    "about": {
+      "url": "https://images.pexels.com/photos/5894283/pexels-photo-5894283.jpeg",
+      "alt": "Artisan crafting shoes",
+      "description": "Showcases the 'Handmade' motto."
+    },
+    "testimonials": [
+      {
+        "name": "Priya P.",
+        "url": "https://images.pexels.com/photos/2723624/pexels-photo-2723624.jpeg",
+        "text": "The embroidery is exquisite! Perfect for my wedding."
+      }
+    ]
+  },
+  "accessibility": {
+    "contrast": "Ensure text-gray-800 or darker on cream backgrounds. Gold text only on Dark Maroon.",
+    "focus": "Visible focus ring (ring-2 ring-primary ring-offset-2).",
+    "labels": "Aria-labels for all icon buttons (Cart, Wishlist, Menu)."
+  },
+  "instructions_to_main_agent": [
+    "1. Setup Shadcn UI with the custom colors defined above (modify tailwind.config.js first).",
+    "2. Install 'framer-motion' and 'lucide-react'.",
+    "3. Create a 'Layout' component that wraps pages with the Sticky Header and Footer.",
+    "4. Use the Bento Grid for the 'Featured Collections' on the Home Page.",
+    "5. Ensure the 'Product Detail Page' has a sticky right column for purchase actions.",
+    "6. Use the provided Image URLs. Do not leave placeholders.",
+    "7. Implement the 'Why Choose Us' section with the artisan image to highlight the 'Handmade' USP.",
+    "8. Maintain the 'Elegant & Feminine' vibe—avoid sharp, brutalist edges. Use rounded-none or rounded-sm.",
+    "9. Add 'data-testid' to all interactive elements."
+  ],
+  "universal_guidelines": [
+    "Do not use generic gradients.",
+    "Avoid 'Inter' font for headings; strictly use Playfair Display.",
+    "Use generous padding (py-16 minimum for sections).",
+    "Dark mode strategy: The brand feels best in Light/Cream, but if Dark mode is toggled, switch to Deep Maroon background with Gold text."
+  ]
+}
