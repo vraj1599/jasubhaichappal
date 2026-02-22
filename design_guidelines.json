@@ -1,0 +1,113 @@
+{
+  "brand_identity": {
+    "name": "Jasubhai Chappal",
+    "core_values": ["Handmade", "Traditional Elegance", "Comfort", "Artisanal"],
+    "personality": "Royal, Warm, Feminine, Trustworthy",
+    "target_audience": "Women across India (Wedding, Festive, Daily wear)"
+  },
+  "design_system": {
+    "theme": "light",
+    "colors": {
+      "primary": "#800020",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#D4AF37",
+      "secondary_foreground": "#000000",
+      "background": "#FDFBF7",
+      "foreground": "#2D2D2D",
+      "muted": "#F5F0E6",
+      "muted_foreground": "#6B5B55",
+      "accent": "#E6BECE",
+      "accent_foreground": "#2D2D2D",
+      "border": "#E8E0D5",
+      "input": "#E8E0D5",
+      "ring": "#800020"
+    },
+    "typography": {
+      "headings": {
+        "font_family": "Playfair Display, serif",
+        "weights": ["400", "700"],
+        "usage": "All section titles, hero text, product names"
+      },
+      "body": {
+        "font_family": "Mulish, sans-serif",
+        "weights": ["400", "500", "600"],
+        "usage": "Descriptions, buttons, navigation, price"
+      },
+      "accents": {
+        "font_family": "Great Vibes, cursive",
+        "usage": "Decorative signatures like 'Handcrafted with Love'"
+      }
+    },
+    "spacing": {
+      "container_padding": "p-4 md:p-8 lg:p-12",
+      "section_gap": "gap-12 md:gap-24",
+      "element_gap": "gap-4 md:gap-6"
+    },
+    "border_radius": {
+      "buttons": "rounded-full",
+      "cards": "rounded-none md:rounded-sm",
+      "inputs": "rounded-md"
+    },
+    "shadows": {
+      "card": "shadow-[0_4px_20px_rgba(128,0,32,0.05)]",
+      "hover": "shadow-[0_8px_30px_rgba(128,0,32,0.12)]"
+    }
+  },
+  "layout_strategies": {
+    "grid_system": "Bento Grid for collections, clean 2-4 column grid for products",
+    "mobile_first": "Stack vertical on mobile, expand to grid on tablet+",
+    "navigation": "Sticky header with glassmorphism (warm cream tint), hamburger menu on mobile",
+    "footer": "Dark Maroon background with Gold text, spacious layout"
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-white hover:bg-[#600018] transition-all duration-300 rounded-full px-8 py-3 font-medium tracking-wide",
+      "secondary": "border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 rounded-full px-8 py-3",
+      "ghost": "text-primary hover:bg-primary/10 rounded-full px-4 py-2"
+    },
+    "cards": {
+      "product": "group relative bg-white border border-border/40 hover:border-primary/20 transition-all duration-300 overflow-hidden",
+      "feature": "bg-muted/50 p-8 text-center hover:bg-white transition-all duration-300 border border-transparent hover:border-border"
+    },
+    "inputs": "bg-white border-input focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200"
+  },
+  "assets": {
+    "images": {
+      "hero_main": "https://images.pexels.com/photos/28834219/pexels-photo-28834219.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "hero_secondary": "https://images.pexels.com/photos/7579468/pexels-photo-7579468.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "collection_festive": "https://images.unsplash.com/photo-1758120221783-5741d0b35096?crop=entropy&cs=srgb&fm=jpg",
+      "collection_wedding": "https://images.unsplash.com/photo-1769103948746-8592931bbdad?crop=entropy&cs=srgb&fm=jpg",
+      "about_craftsman": "https://images.pexels.com/photos/11576563/pexels-photo-11576563.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "testimonial_1": "https://images.pexels.com/photos/20021591/pexels-photo-20021591.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "testimonial_2": "https://images.pexels.com/photos/2723624/pexels-photo-2723624.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+    },
+    "icons": {
+      "library": "lucide-react",
+      "style": "stroke-width=1.5, size=24"
+    }
+  },
+  "animation_guidelines": {
+    "library": "framer-motion",
+    "transitions": "spring, stiffness: 100, damping: 20",
+    "hover_effects": "scale-105 for images, text-underline-offset for links",
+    "page_load": "fade-in with staggered children"
+  },
+  "instructions_to_main_agent": [
+    "INSTALL: npm install lucide-react framer-motion clsx tailwind-merge @radix-ui/react-slot",
+    "FONTS: Add Google Fonts link for 'Playfair Display', 'Mulish', and 'Great Vibes' in public/index.html",
+    "TAILWIND: Update tailwind.config.js with the specified color palette and font families.",
+    "ICONS: Use Lucide React icons for all UI elements (ShoppingBag, Heart, Menu, X, ChevronDown, etc.).",
+    "IMAGES: Use the provided image URLs. Do NOT use placeholders.",
+    "COMPONENTS: Use Shadcn UI logic but override styles to match the 'Royal/Handmade' aesthetic (rounded-none for crisp look where appropriate, but rounded-full for buttons).",
+    "LAYOUT: Ensure mobile responsiveness. The navigation must collapse into a hamburger menu on small screens.",
+    "CRITICAL: Do not use default blue/slate colors. Stick strictly to Maroon (#800020), Gold (#D4AF37), and Cream (#FDFBF7).",
+    "ACCESSIBILITY: Ensure text contrast on the Cream background. Maroon text is readable, but Gold text needs a dark background (like the Footer)."
+  ],
+  "universal_guidelines": [
+    "Avoid generic 'AI slop' designs. Use asymmetry in the Hero section.",
+    "Use 2-3x more spacing (padding) than typical designs.",
+    "Every interaction needs a micro-animation (hover, click).",
+    "Use 'sonner' for toast notifications.",
+    "All interactive elements must have 'data-testid' attributes."
+  ]
+}
