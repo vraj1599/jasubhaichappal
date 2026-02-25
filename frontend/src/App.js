@@ -64,7 +64,20 @@ function App() {
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<Admin />} />
+            
+            {/* Admin Login (Public) */}
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            
+            {/* Protected Admin Route */}
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              } 
+            />
+            
             <Route path="/shipping-policy" element={<ShippingPolicy />} />
             <Route path="/return-policy" element={<ReturnPolicy />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
