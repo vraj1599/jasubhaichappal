@@ -46,6 +46,7 @@ code {
         --chart-4: 43 74% 66%;
         --chart-5: 27 87% 67%;
     }
+
     .dark {
         --background: 345 100% 25%;
         --foreground: 43 72% 52%;
@@ -73,6 +74,7 @@ code {
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
     }
@@ -83,7 +85,7 @@ code {
         display: contents !important;
     }
 
-    [data-debug-wrapper="true"] > * {
+    [data-debug-wrapper="true"]>* {
         margin-left: inherit;
         margin-right: inherit;
         margin-top: inherit;
@@ -111,12 +113,14 @@ code {
 }
 
 .scroll-smooth {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 .text-shadow {
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Mulish:wght@400;500;600&family=Great+Vibes&display=swap');
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Mulish:wght@400;500;600&family=Great+Vibes&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -165,6 +169,7 @@ code {
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
     }
@@ -175,7 +180,7 @@ code {
         display: contents !important;
     }
 
-    [data-debug-wrapper="true"] > * {
+    [data-debug-wrapper="true"]>* {
         margin-left: inherit;
         margin-right: inherit;
         margin-top: inherit;
@@ -199,5 +204,17 @@ code {
         border-right-color: inherit;
         border-top-color: inherit;
         border-bottom-color: inherit;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 }
