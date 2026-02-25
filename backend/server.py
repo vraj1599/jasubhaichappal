@@ -246,6 +246,58 @@ async def get_current_user(token: str):
 async def root():
     return {"message": "Jasubhai Chappal API"}
 
+# ========== AUTHENTICATION ROUTES ==========
+@api_router.post("/auth/login", response_model=Token)
+async def login(login_data: AdminLogin):
+    user = await db.users.find_one({"email": login_data.email}, {"_id": 0})
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    if not verify_password(login_data.password, user["password"]):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user["email"], "is_admin": user.get("is_admin", False)},
+        expires_delta=access_token_expires
+    )
+    
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@api_router.get("/auth/me")
+async def get_current_user_info(token: str = Query(...)):
+    user = await get_current_user(token)
+    return {
+        "id": user["id"],
+        "name": user["name"],
+        "email": user["email"],
+        "is_admin": user.get("is_admin", False)
+    }
+
+@api_router.post("/auth/create-admin")
+async def create_default_admin():
+    """Create default admin user"""
+    existing = await db.users.find_one({"email": "admin@jasubhaichappal.com"}, {"_id": 0})
+    if existing:
+        return {"message": "Admin already exists", "email": "admin@jasubhaichappal.com"}
+    
+    admin = User(
+        name="Admin",
+        email="admin@jasubhaichappal.com",
+        phone="9876543210",
+        password=get_password_hash("admin123"),
+        is_admin=True
+    )
+    doc = admin.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.users.insert_one(doc)
+    
+    return {
+        "message": "Admin created successfully",
+        "email": "admin@jasubhaichappal.com",
+        "password": "admin123"
+    }
+
 # Category Routes
 @api_router.get("/categories", response_model=List[Category])
 async def get_categories():
