@@ -1,20 +1,24 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-import { Toaster } from '@/components/ui/sonner';
-import '@/App.css';
-
-import HomePage from '@/pages/HomePage';
-import ShopPage from '@/pages/ShopPage';
-import ProductDetailPage from '@/pages/ProductDetailPage';
-import CartPage from '@/pages/CartPage';
-import CheckoutPage from '@/pages/CheckoutPage';
-import OrderSuccessPage from '@/pages/OrderSuccessPage';
-import AdminLoginPage from '@/pages/AdminLoginPage';
-import AdminDashboardPage from '@/pages/AdminDashboardPage';
-import AboutPage from '@/pages/AboutPage';
-import ContactPage from '@/pages/ContactPage';
-import PolicyPage from '@/pages/PolicyPage';
+import { Toaster } from 'sonner';
+import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
+import Home from './pages/Home';
+import Shop from './pages/Shop';
+import ProductDetail from './pages/ProductDetail';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import OrderConfirmation from './pages/OrderConfirmation';
+import Wishlist from './pages/Wishlist';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Admin from './pages/Admin';
+import AdminLoginPage from './pages/AdminLoginPage';
+import ShippingPolicy from './pages/ShippingPolicy';
+import ReturnPolicy from './pages/ReturnPolicy';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Terms from './pages/Terms';
 
 // const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const BACKEND_URL = 'http://localhost:8001'
@@ -108,17 +112,33 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/shop" element={<ShopPage />} />
-            <Route path="/product/:id" element={<ProductDetailPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/order-success/:orderId" element={<OrderSuccessPage />} />
-            <Route path="/admin" element={<AdminLoginPage />} />
-            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/policy/:type" element={<PolicyPage />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/product/:slug" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            
+            {/* Admin Login (Public) */}
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            
+            {/* Protected Admin Route */}
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route path="/shipping-policy" element={<ShippingPolicy />} />
+            <Route path="/return-policy" element={<ReturnPolicy />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
           </Routes>
         </BrowserRouter>
         <Toaster richColors position="top-right" />
