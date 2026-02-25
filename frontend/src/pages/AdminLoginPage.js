@@ -15,21 +15,21 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const response = await axios.post(`${API}/admin/login`, { email, password });
-      localStorage.setItem('admin_token', response.data.token);
-      toast.success('Login successful!');
-      navigate('/admin/dashboard');
-    } catch (error) {
-      toast.error(error.response?.data?.detail || 'Login failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const response = await axios.post(`${API}/admin/login`, { email, password });
+    localStorage.setItem('admin_token', response.data.access_token); // <--- fixed
+    toast.success('Login successfuuul!');
+    navigate('/admin/dashboard');
+  } catch (error) {
+    toast.error(error.response?.data?.detail || 'Login failed');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen">

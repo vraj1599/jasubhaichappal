@@ -3,7 +3,7 @@ import { Plus, Edit2, Trash2, Package, ShoppingBag } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = 'http://localhost:8001';
 const API = `${BACKEND_URL}/api`;
 
 const Admin = () => {
@@ -166,11 +166,10 @@ const Admin = () => {
         <div className="flex gap-4 mb-8 border-b border-border">
           <button
             onClick={() => setActiveTab('products')}
-            className={`px-6 py-3 font-semibold transition-colors ${
-              activeTab === 'products'
-                ? 'border-b-2 border-primary text-primary'
-                : 'text-muted-foreground hover:text-primary'
-            }`}
+            className={`px-6 py-3 font-semibold transition-colors ${activeTab === 'products'
+              ? 'border-b-2 border-primary text-primary'
+              : 'text-muted-foreground hover:text-primary'
+              }`}
             data-testid="products-tab"
           >
             <Package className="w-5 h-5 inline mr-2" />
@@ -178,22 +177,20 @@ const Admin = () => {
           </button>
           <button
             onClick={() => setActiveTab('categories')}
-            className={`px-6 py-3 font-semibold transition-colors ${
-              activeTab === 'categories'
-                ? 'border-b-2 border-primary text-primary'
-                : 'text-muted-foreground hover:text-primary'
-            }`}
+            className={`px-6 py-3 font-semibold transition-colors ${activeTab === 'categories'
+              ? 'border-b-2 border-primary text-primary'
+              : 'text-muted-foreground hover:text-primary'
+              }`}
             data-testid="categories-tab"
           >
             Categories
           </button>
           <button
             onClick={() => setActiveTab('orders')}
-            className={`px-6 py-3 font-semibold transition-colors ${
-              activeTab === 'orders'
-                ? 'border-b-2 border-primary text-primary'
-                : 'text-muted-foreground hover:text-primary'
-            }`}
+            className={`px-6 py-3 font-semibold transition-colors ${activeTab === 'orders'
+              ? 'border-b-2 border-primary text-primary'
+              : 'text-muted-foreground hover:text-primary'
+              }`}
             data-testid="orders-tab"
           >
             <ShoppingBag className="w-5 h-5 inline mr-2" />
@@ -301,6 +298,41 @@ const Admin = () => {
                         <option key={cat.id} value={cat.id}>{cat.name}</option>
                       ))}
                     </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      Product Images (comma separated URLs) *
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="https://image1.jpg, https://image2.jpg"
+                      value={productForm.images.join(', ')}
+                      onChange={(e) =>
+                        setProductForm({
+                          ...productForm,
+                          images: e.target.value.split(',').map(i => i.trim())
+                        })
+                      }
+                      className="w-full px-4 py-2 border border-border focus:outline-none focus:ring-2 focus:ring-primary"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold mb-2">
+                      Sizes (comma separated)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="6,7,8,9,10"
+                      value={productForm.sizes.join(', ')}
+                      onChange={(e) =>
+                        setProductForm({
+                          ...productForm,
+                          sizes: e.target.value.split(',').map(s => s.trim())
+                        })
+                      }
+                      className="w-full px-4 py-2 border border-border focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
                   </div>
                   <div className="flex items-center gap-3">
                     <input

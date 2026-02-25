@@ -13,6 +13,7 @@ import razorpay
 from enum import Enum
 from passlib.context import CryptContext
 from jose import JWTError, jwt
+from fastapi import Body
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -246,6 +247,27 @@ async def get_current_user(token: str):
 async def root():
     return {"message": "Jasubhai Chappal API"}
 
+
+@api_router.post("/admin/login", response_model=Token)
+async def admin_login(admin_data: AdminLogin = Body(...)):
+    """
+    Admin login with static credentials.
+    """
+    STATIC_ADMIN_EMAIL = "admin@jasubhaichappal.com"
+    STATIC_ADMIN_PASSWORD = "admin123"
+
+    if admin_data.email != STATIC_ADMIN_EMAIL or admin_data.password != STATIC_ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+
+    # Generate JWT token for admin
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": STATIC_ADMIN_EMAIL, "is_admin": True},
+        expires_delta=access_token_expires
+    )
+
+    return {"access_token": access_token, "token_type": "bearer"}
+
 # ========== AUTHENTICATION ROUTES ==========
 @api_router.post("/auth/login", response_model=Token)
 async def login(login_data: AdminLogin):
@@ -316,26 +338,35 @@ async def create_category(category: CategoryCreate):
 
 # Product Routes
 @api_router.get("/products", response_model=List[Product])
-async def get_products(
-    category_id: Optional[str] = None,
-    featured: Optional[bool] = None,
-    search: Optional[str] = None,
-    skip: int = 0,
-    limit: int = 100
-):
-    query = {}
-    if category_id:
-        query["category_id"] = category_id
-    if featured is not None:
-        query["featured"] = featured
-    if search:
-        query["$or"] = [
-            {"name": {"$regex": search, "$options": "i"}},
-            {"description": {"$regex": search, "$options": "i"}}
-        ]
-    
-    products = await db.products.find(query, {"_id": 0}).skip(skip).limit(limit).to_list(limit)
-    return products
+async def get_products():
+    products = await db.products.find({}, {"_id": 0}).to_list(100)
+
+    formatted_products = []
+
+    for p in products:
+        formatted_products.append({
+            "id": p.get("id"),
+            "name": p.get("name"),
+            "slug": p.get("slug") or p.get("name", "").lower().replace(" ", "-"),
+            "description": p.get("description"),
+            "price": p.get("price"),
+            "discount_price": p.get("discount_price"),
+            "category_id": p.get("category_id") or "default-category",
+            "images": p.get("images", []),
+            "sizes": p.get("sizes", []),
+            "colors": p.get("colors", []),
+            "care_instructions": p.get("care_instructions"),
+            "in_stock": p.get("stock", 0) > 0,
+            "stock_quantity": p.get("stock") or p.get("stock_quantity", 0),
+            "featured": p.get("featured", False),
+            "created_at": (
+                datetime.fromisoformat(p["created_at"])
+                if isinstance(p.get("created_at"), str)
+                else p.get("created_at")
+            ),
+        })
+
+    return formatted_products
 
 @api_router.get("/products/{product_id}", response_model=Product)
 async def get_product(product_id: str):
@@ -609,13 +640,14 @@ async def update_order_status(order_id: str, status: OrderStatus):
 async def get_razorpay_key():
     return {"key_id": os.environ.get('RAZORPAY_KEY_ID', '')}
 
+
 # Include the router in the main app
 app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
+    allow_origins=["http://localhost:3000"],
     allow_methods=["*"],
     allow_headers=["*"],
 )

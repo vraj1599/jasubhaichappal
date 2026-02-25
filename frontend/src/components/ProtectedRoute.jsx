@@ -14,7 +14,7 @@ const ProtectedRoute = ({ children }) => {
   }, []);
 
   const checkAuth = async () => {
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem('admin_token');
     
     if (!token) {
       setIsAuthenticated(false);
@@ -51,9 +51,9 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/admin" replace />;
-  }
+//   if (!isAuthenticated) {
+//   return <Navigate to="/admin/login" replace />;
+// }
 
   return children;
 };
