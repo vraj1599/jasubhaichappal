@@ -55,6 +55,10 @@ class PaymentStatus(str, Enum):
     FAILED = "failed"
 
 # Models
+class PhoneAuthRequest(BaseModel):
+    name: str
+    phone: str
+
 class User(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -246,6 +250,42 @@ async def get_current_user(token: str):
 @api_router.get("/")
 async def root():
     return {"message": "Jasubhai Chappal API"}
+
+#user registration
+@api_router.post("/phone-login", response_model=Token)
+async def phone_login(data: PhoneAuthRequest):
+
+    # 1️⃣ Check if user exists by phone
+    user = await db.users.find_one({"phone": data.phone}, {"_id": 0})
+
+    if not user:
+        # 2️⃣ Create new user automatically
+
+        dummy_email = f"{data.phone}@jasubhai.com"
+        dummy_password = get_password_hash(data.phone)  # using phone as password
+
+        new_user = User(
+            name=data.name,
+            email=dummy_email,
+            phone=data.phone,
+            password=dummy_password,
+            is_admin=False
+        )
+
+        doc = new_user.model_dump()
+        doc["created_at"] = doc["created_at"].isoformat()
+
+        await db.users.insert_one(doc)
+        user = doc
+
+    # 3️⃣ Create JWT token (IMPORTANT: use email because your auth uses email)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user["email"], "is_admin": user.get("is_admin", False)},
+        expires_delta=access_token_expires
+    )
+
+    return {"access_token": access_token, "token_type": "bearer"}
 
 
 @api_router.post("/admin/login", response_model=Token)
