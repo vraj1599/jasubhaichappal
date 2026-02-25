@@ -33,18 +33,18 @@ const Layout = ({ children, cartCount = 0, wishlistCount = 0 }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2" data-testid="logo-link">
-              <h1 className="text-2xl md:text-3xl font-serif font-bold text-primary">
+            <Link to="/" className="flex items-center" data-testid="logo-link">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-primary whitespace-nowrap">
                 Jasubhai Chappal
               </h1>
             </Link>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               <Link
                 to="/"
                 data-testid="nav-home"
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-base font-medium transition-colors duration-200 hover:text-primary whitespace-nowrap ${
                   location.pathname === '/' ? 'text-primary' : 'text-foreground'
                 }`}
               >
@@ -53,7 +53,7 @@ const Layout = ({ children, cartCount = 0, wishlistCount = 0 }) => {
               <Link
                 to="/shop"
                 data-testid="nav-shop"
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-base font-medium transition-colors duration-200 hover:text-primary whitespace-nowrap ${
                   location.pathname === '/shop' ? 'text-primary' : 'text-foreground'
                 }`}
               >
@@ -62,7 +62,7 @@ const Layout = ({ children, cartCount = 0, wishlistCount = 0 }) => {
               <Link
                 to="/about"
                 data-testid="nav-about"
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-base font-medium transition-colors duration-200 hover:text-primary whitespace-nowrap ${
                   location.pathname === '/about' ? 'text-primary' : 'text-foreground'
                 }`}
               >
@@ -71,7 +71,7 @@ const Layout = ({ children, cartCount = 0, wishlistCount = 0 }) => {
               <Link
                 to="/contact"
                 data-testid="nav-contact"
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`text-base font-medium transition-colors duration-200 hover:text-primary whitespace-nowrap ${
                   location.pathname === '/contact' ? 'text-primary' : 'text-foreground'
                 }`}
               >
@@ -79,20 +79,20 @@ const Layout = ({ children, cartCount = 0, wishlistCount = 0 }) => {
               </Link>
             </nav>
 
-            {/* Icons */}
-            <div className="flex items-center space-x-4">
+            {/* Icons & Mobile Menu Button */}
+            <div className="flex items-center gap-3 sm:gap-4">
               <Link to="/wishlist" className="relative" data-testid="wishlist-icon">
-                <Heart className="w-6 h-6 text-foreground hover:text-primary transition-colors" />
+                <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-foreground hover:text-primary transition-colors" />
                 {wishlistCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
                     {wishlistCount}
                   </span>
                 )}
               </Link>
               <Link to="/cart" className="relative" data-testid="cart-icon">
-                <ShoppingCart className="w-6 h-6 text-foreground hover:text-primary transition-colors" />
+                <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 text-foreground hover:text-primary transition-colors" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-semibold">
                     {cartCount}
                   </span>
                 )}
@@ -100,12 +100,68 @@ const Layout = ({ children, cartCount = 0, wishlistCount = 0 }) => {
               <Link
                 to="/admin"
                 data-testid="admin-link"
-                className="hidden md:block px-4 py-2 text-sm font-medium text-primary border border-primary rounded-none hover:bg-primary hover:text-white transition-all duration-300"
+                className="hidden sm:block px-3 py-2 text-sm font-medium text-primary border border-primary rounded-none hover:bg-primary hover:text-white transition-all duration-300 whitespace-nowrap"
               >
                 Admin
               </Link>
+              
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
+                aria-label="Toggle menu"
+                data-testid="mobile-menu-button"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden py-4 border-t border-border animate-in slide-in-from-top">
+              <nav className="flex flex-col space-y-3">
+                <Link
+                  to="/"
+                  className={`px-4 py-2 text-base font-medium transition-colors ${
+                    location.pathname === '/' ? 'text-primary bg-accent/20' : 'text-foreground hover:text-primary hover:bg-accent/10'
+                  }`}
+                >
+                  Home
+                </Link>
+                <Link
+                  to="/shop"
+                  className={`px-4 py-2 text-base font-medium transition-colors ${
+                    location.pathname === '/shop' ? 'text-primary bg-accent/20' : 'text-foreground hover:text-primary hover:bg-accent/10'
+                  }`}
+                >
+                  Shop
+                </Link>
+                <Link
+                  to="/about"
+                  className={`px-4 py-2 text-base font-medium transition-colors ${
+                    location.pathname === '/about' ? 'text-primary bg-accent/20' : 'text-foreground hover:text-primary hover:bg-accent/10'
+                  }`}
+                >
+                  About Us
+                </Link>
+                <Link
+                  to="/contact"
+                  className={`px-4 py-2 text-base font-medium transition-colors ${
+                    location.pathname === '/contact' ? 'text-primary bg-accent/20' : 'text-foreground hover:text-primary hover:bg-accent/10'
+                  }`}
+                >
+                  Contact
+                </Link>
+                <Link
+                  to="/admin"
+                  className="px-4 py-2 text-base font-medium text-primary border border-primary hover:bg-primary hover:text-white transition-all"
+                >
+                  Admin Dashboard
+                </Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
