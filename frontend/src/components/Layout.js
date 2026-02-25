@@ -1,9 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingCart, Heart, Phone, Mail, MapPin, Instagram, Facebook } from 'lucide-react';
+import { ShoppingCart, Heart, Phone, Mail, MapPin, Instagram, Facebook, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const Layout = ({ children, cartCount = 0, wishlistCount = 0 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -13,6 +14,11 @@ const Layout = ({ children, cartCount = 0, wishlistCount = 0 }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <div className="min-h-screen flex flex-col">
